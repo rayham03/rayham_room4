@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yanmar AW70V Harvester</title>
+  <style>
+    :root {
+      --nature-green: #3e7e3f;
+      --leaf-light: #d7f3d4;
+      --earth-brown: #8d775f;
+      --light-beige: #fdf9f3;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f3e5, #f7f6e8);
+      color: #2f2f2f;
+      transition: background 1s ease;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: var(--light-beige);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 18px;
+      overflow: hidden;
+      transform: translateY(60px);
+      opacity: 0;
+      transition: transform 1.2s ease, opacity 1.2s ease;
+    }
+
+    .container.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .image-section {
+      padding: 30px;
+      background: radial-gradient(circle, var(--leaf-light), #ffffff);
+      border-bottom: 5px solid var(--nature-green);
+    }
+
+    .image-frame {
+      border: 10px groove var(--nature-green);
+      border-radius: 25px;
+      padding: 15px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+      cursor: zoom-in;
+    }
+
+    .image-frame:hover {
+      transform: scale(1.02);
+    }
+
+    .image-frame img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .text-section {
+      padding: 30px;
+    }
+
+    .text-section h2 {
+      color: var(--nature-green);
+      font-size: 32px;
+      margin-top: 0;
+      position: relative;
+      animation: fadeInUp 1s ease;
+    }
+
+    .text-section h2::after {
+      content: '';
+      width: 70px;
+      height: 4px;
+      background: var(--earth-brown);
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      border-radius: 3px;
+    }
+
+    .text-section p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin-top: 20px;
+      text-align: justify;
+      color: #444;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--nature-green);
+      color: white;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      border: 6px solid white;
+      box-shadow: 0 0 30px rgba(0,0,0,0.6);
+      animation: zoomIn 0.4s ease;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="mainContent">
+    <div class="image-section">
+      <div class="image-frame" id="zoomImage">
+        <img src="content://com.android.providers.media.documents/document/image%3A73700" alt="Yanmar AW70V Harvester">
+      </div>
+    </div>
+    <div class="text-section">
+      <h2>Yanmar AW70V Harvester</h2>
+      <p>
+        This is a picture of a <strong>Yanmar AW70V</strong>, a rice combine harvester. 
+        It helps farmers a lot because it makes the job faster and easier. Instead of harvesting rice 
+        by hand, which takes a long time, this machine can cut, separate, and clean the rice in one go. 
+        It saves time, effort, and money. Farmers can finish harvesting more quickly, even with just a few workers. 
+        This is very helpful, especially during rainy days when they need to finish fast.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+   @ Rayham & Roderick 
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <img src="YOUR_IMAGE_PATH_HERE.jpg" alt="Zoomed Yanmar AW70V">
+  </div>
+
+  <script>
+    // Scroll reveal animation
+    const container = document.getElementById('mainContent');
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.8;
+      const boxTop = container.getBoundingClientRect().top;
+      if (boxTop < triggerBottom) container.classList.add('visible');
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Lightbox functionality
+    const zoomImage = document.getElementById('zoomImage');
+    const lightbox = document.getElementById('lightbox');
+
+    zoomImage.addEventListener('click', () => {
+      lightbox.classList.add('active');
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+
+    // Nature color background blend (subtle)
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const green = Math.min(255, 224 + y * 0.05);
+      const blue = Math.min(240, 210 + y * 0.03);
+      document.body.style.background = `rgb(${green},${green},${blue})`;
+    });
+  </script>
+
+</body>
+</html>
